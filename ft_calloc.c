@@ -1,39 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: socana-b <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/30 12:40:38 by socana-b          #+#    #+#             */
+/*   Updated: 2021/09/30 12:40:39 by socana-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
-#include <stdio.h>
 
-void * ft_calloc(size_t count, size_t size)
+void	*ft_calloc(size_t count, size_t size)
 {
-	int i;
-	char *aux;
+	char				*aux;
+	unsigned int		i;
 
-	if (size == 1)
+	i = 0;
+	aux = malloc(size * count);
+	if (aux == NULL)
+		return (NULL);
+	while (i < count)
 	{
-		i = 0;
-		aux = (char *) malloc (sizeof(char) * count);
-		while (i < count)
-		{
-			aux[i] = '\0';
-			i++;
-		}
+		aux[i] = '\0';
+		i++;
 	}
-	else 
-	{
-		i = 0;
-		aux = (int *) malloc (sizeof(int) * count);
-		while (i < count)
-		{
-			aux[i] = 0;
-			i++;
-		}
-	}
-}
-
-int main()
-{
-	float *a = calloc (5,sizeof(float));
-	for (int i = 0;i<2;i++)
-	{
-		a[i] = 4.0;
-	}
-	printf("%f %f %f %f %f", a[0], a[1], a[2], a[3], a[4]);
+	return (aux);
 }

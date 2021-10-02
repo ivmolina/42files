@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	find(char const *set, char car)
+static int	find(char const *set, char car)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ int	find(char const *set, char car)
 	return (0);
 }
 
-void	cut(char const *s1, char const *set, char *resul)
+static void	cut(char const *s1, char const *set, char *resul)
 {
 	int		i;
 	int		j;

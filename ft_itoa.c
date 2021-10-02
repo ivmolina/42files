@@ -1,7 +1,18 @@
-#include "libft.h"
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: socana-b <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/30 10:11:12 by socana-b          #+#    #+#             */
+/*   Updated: 2021/09/30 10:11:13 by socana-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	leng(int n)
+#include "libft.h"
+
+static int	leng(int n)
 {
 	int	count;
 	int	aux;
@@ -18,7 +29,7 @@ int	leng(int n)
 	return (count);
 }
 
-void	aux(char *num, int n, int x)
+static void	aux(char *num, int n, int x)
 {
 	int	i;
 

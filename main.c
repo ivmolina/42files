@@ -1,11 +1,11 @@
 #include <string.h>
 #include <stdio.h>
 #include "libft.h"
+
 int main(void)
 {
-	char c[10] = {'s','t','r','i','n','g','\0'};
-	char result[1];
-	ft_memcpy(result, c, sizeof(c));
-	// memcpy(result, c, sizeof(c));
-	printf("%s", result);
+	printf("Origen:\n%d\n", memcmp("t\200", "t\0", 2));
+	printf("Copia:\n%d\n", ft_memcmp("t\200", "t\0", 2));
 }
+//printf("Origen:\n%s\n", strdup("string de prueba"));
+//printf("Copia:\n%s\n", ft_strdup("string de prueba"));

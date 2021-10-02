@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	counts(const char *s, int c)
+static int	counts(const char *s, int c)
 {
 	int	i;
 	int	count;
@@ -28,7 +28,7 @@ int	counts(const char *s, int c)
 	return (count);
 }
 
-int	find(const char *s, int c)
+static int	find(const char *s, int c)
 {
 	int	i;
 	int	j;
@@ -50,6 +50,8 @@ int	find(const char *s, int c)
 
 char	*ft_strrchr(const char *s, int c)
 {
+	if (c == '\0')
+		return ("\0");
 	if (counts(s, c) >= 1)
 		return ((char *)(s + find(s, c)));
 	else

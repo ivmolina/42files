@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	cmpst(const char *str, const char *find, unsigned long int i, size_t len)
+static int	cmpst(const char *str, const char *find, unsigned long int i, size_t len)
 {
 	int	j;
 	int	k;

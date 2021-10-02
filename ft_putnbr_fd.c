@@ -1,11 +1,21 @@
-#include <fcntl.h>
-#include <unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: socana-b <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/30 10:17:56 by socana-b          #+#    #+#             */
+/*   Updated: 2021/09/30 10:17:57 by socana-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-void ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
-	int x;
-	char c;
+	int		x;
+	char	c;
 
 	x = 1;
 	while (x * 10 < n)

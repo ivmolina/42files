@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: socana-b <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/18 16:26:05 by socana-b          #+#    #+#             */
-/*   Updated: 2021/09/18 16:26:08 by socana-b         ###   ########.fr       */
+/*   Created: 2021/10/02 17:52:56 by socana-b          #+#    #+#             */
+/*   Updated: 2021/10/02 17:52:57 by socana-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
+	char const		*aux1;
+	char const		*aux2;
 	unsigned int	i;
-	unsigned int	j;
-	char			*aux;
 
-	j = 0;
-	i = start;
-	if (start >= ft_strlen(s))
-		return (0);
-	aux = malloc (sizeof(s));
-	if (aux == NULL)
-		return (NULL);
-	while ((j < len) && s[i])
+	i = 0;
+	aux1 = s1;
+	aux2 = s2;
+	while (i < n)
 	{
-		aux[j] = s[i];
+		if (aux1[i] > aux2[i])
+			return (1);
+		else if (aux1[i] < aux2[i])
+			return (-1);
 		i++;
-		j++;
 	}
-	aux[j] = '\0';
-	return (aux);
+	return (0);
 }

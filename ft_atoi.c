@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int	is_number(char c)
+static int	is_number(char c)
 {
 	if ((c >= '0') && (c <= '9'))
 		return (1);
@@ -20,7 +20,7 @@ int	is_number(char c)
 		return (0);
 }
 
-int	atoi2(const char *str, int i)
+static int	atoi2(const char *str, int i)
 {
 	int	n;
 
@@ -35,7 +35,7 @@ int	atoi2(const char *str, int i)
 	return (n);
 }
 
-int	space(const char *str, int i)
+static int	space(const char *str, int i)
 {
 	while ((str[i] == ' ') || (str[i] == '\t'))
 		i++;
@@ -44,9 +44,9 @@ int	space(const char *str, int i)
 
 int	ft_atoi(const char *str)
 {
-	int	i;
-	int	s;
-	int	number;
+	int			i;
+	int			s;
+	long int	number;
 
 	i = 0;
 	s = 1;

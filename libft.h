@@ -45,4 +45,10 @@ void	ft_bzero(void *s, size_t n);
 void	*ft_memset(void *b, int c, unsigned long int len);
 void	*ft_memchr(const void *s, int c, size_t n);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
+void	*ft_calloc(size_t count, size_t size);
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+void	ft_striteri(char *s, void (*f)(unsigned int, char*));
+int		ft_memcmp(const void *s1, const void *s2, size_t n);
+void	*ft_memmove(void *dst, const void *src, size_t len);
+
 #endif
