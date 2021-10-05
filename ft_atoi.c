@@ -22,7 +22,7 @@ static int	is_number(char c)
 
 static int	atoi2(const char *str, int i)
 {
-	int	n;
+	long int	n;
 
 	n = 0;
 	while (is_number(str[i]))
@@ -37,7 +37,8 @@ static int	atoi2(const char *str, int i)
 
 static int	space(const char *str, int i)
 {
-	while ((str[i] == ' ') || (str[i] == '\t'))
+	while ((str[i] == ' ') || (str[i] == '\t') || (str[i] == '\n')
+		 || (str[i] == '\v') || (str[i] == '\f') || (str[i] == '\r'))
 		i++;
 	return (i);
 }
@@ -50,7 +51,8 @@ int	ft_atoi(const char *str)
 
 	i = 0;
 	s = 1;
-	if ((str[i] == ' ') || (str[i] == '\t'))
+	if ((str[i] == ' ') || (str[i] == '\t') || (str[i] == '\n')
+		 || (str[i] == '\v') || (str[i] == '\f') || (str[i] == '\r'))
 		i = space(str, i);
 	if ((str[i] == '+') || (str[i] == '-'))
 	{

@@ -12,7 +12,8 @@
 
 #include "libft.h"
 
-static int	cmpst(const char *str, const char *find, unsigned long int i, size_t len)
+static int	cmpst(const char *str, const char *find,
+unsigned long int i, size_t len)
 {
 	int	j;
 	int	k;
@@ -20,12 +21,12 @@ static int	cmpst(const char *str, const char *find, unsigned long int i, size_t 
 
 	j = 0;
 	aux = 1;
-	if ((*(find + j) == *(str + i)) && (i != (len - 1)))
+	if ((find[j] == str[i]) && (i <= (len - 1)))
 	{
 		k = i;
-		while ((aux) && *(find + j))
+		while ((aux) && find[j])
 		{
-			if (*(find + j) != *(str + i))
+			if (find[j] != str[i])
 				aux = 0;
 			i++;
 			j++;
@@ -41,7 +42,7 @@ char	*ft_strnstr(const char *str, const char *to_find, size_t len)
 	unsigned long int	i;
 
 	i = 0;
-	if (*(to_find + i) == '\0')
+	if (to_find[i] == '\0')
 		return ((char *)str);
 	while ((i < len) && (str[i]))
 	{

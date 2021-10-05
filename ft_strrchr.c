@@ -50,8 +50,6 @@ static int	find(const char *s, int c)
 
 char	*ft_strrchr(const char *s, int c)
 {
-	if (c == '\0')
-		return ("\0");
 	if (counts(s, c) >= 1)
 		return ((char *)(s + find(s, c)));
 	else

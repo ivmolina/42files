@@ -2,10 +2,12 @@
 #include <stdio.h>
 #include "libft.h"
 
-int main(void)
+int main()
 {
-	printf("Origen:\n%d\n", memcmp("t\200", "t\0", 2));
-	printf("Copia:\n%d\n", ft_memcmp("t\200", "t\0", 2));
+	char		str2[] = "bonjour";
+	
+	printf("Origen:\n%s\n", strchr(str2, '\0'));
+	printf("Copia:\n%s\n", ft_strchr(str2, '\0'));
 }
 //printf("Origen:\n%s\n", strdup("string de prueba"));
 //printf("Copia:\n%s\n", ft_strdup("string de prueba"));
