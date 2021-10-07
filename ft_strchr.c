@@ -23,13 +23,13 @@ static int	find(const char *s, int c)
 			return (i);
 		i++;
 	}
+	if (!c && !s[i])
+		return (i);
 	return (-1);
 }
 
 char	*ft_strchr(const char *s, int c)
 {
-	if (c == '\0')
-		return ("\0");
 	if (find(s, c) >= 0)
 		return ((char *)(s + find(s, c)));
 	else

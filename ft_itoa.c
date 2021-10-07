@@ -14,60 +14,86 @@
 
 static int	leng(int n)
 {
-	int	count;
-	int	aux;
+	int	i;
 
-	count = 0;
-	aux = 1;
+	i = 0;
+	if (n == -2147483648)
+		return (11);
 	if (n < 0)
-		n *= -1;
-	while (aux < n)
 	{
-		aux *= 10;
-		count++;
+		i++;
+		n *= -1;
 	}
-	return (count);
+	while (n >= 1)
+	{
+		n = n / 10;
+		i++;
+	}
+	return (i);
 }
 
-static void	aux(char *num, int n, int x)
+static void	reverse(char *str)
+{
+	unsigned long int	i;
+	char				aux;
+
+	i = 0;
+	while (i < ft_strlen(str) / 2)
+	{
+		aux = str[i];
+		str[i] = str[ft_strlen(str) - i - 1];
+		str[ft_strlen(str) - i - 1] = aux;
+		i++;
+	}	
+}
+
+static int	minus(int n, char *str)
 {
 	int	i;
 
 	i = 0;
-	while (x > 0)
+	if (n == -2147483648)
 	{
-		if (n >= 0)
-		{
-			num[i] = (n / x) + 48;
-			n = n - ((n / x) * x);
-			x /= 10;
-		}
-		else
-		{
-			n *= -1;
-			num[i] = '-';
-		}
+		n = 214748364;
+		str[i] = '8';
 		i++;
 	}
-	num[i] = '\0';
+	if (n < 0)
+		n *= -1;
+	while (n >= 1)
+	{
+		str[i] = (n % 10) + 48;
+		n = n / 10;
+		i++;
+	}
+	str[i] = '-';
+	i++;
+	return (i);
 }
 
 char	*ft_itoa(int n)
 {
 	char	*num;
-	int		x;
 	int		i;
 
 	i = 0;
-	x = 1;
-	num = malloc (sizeof(char) * (leng(n) + 1));
+	num = malloc (sizeof(char) * (leng(n) + 2));
 	if (num == NULL)
 		return (NULL);
-	while (i < leng(n) - 1)
+	if (n < 0)
+		i = minus(n, num);
+	else if (n == 0)
+		num[i++] = '0';
+	else
 	{
-		x *= 10;
-		i++;
+		while (n > 0)
+		{
+			num[i] = (n % 10) + 48;
+			n = n / 10;
+			i++;
+		}
 	}
-	aux (num, n, x);
+	num[i] = '\0';
+	reverse(num);
 	return (num);
 }

@@ -24,13 +24,15 @@ unsigned long int i, size_t len)
 	if ((find[j] == str[i]) && (i <= (len - 1)))
 	{
 		k = i;
-		while ((aux) && find[j])
+		while ((aux) && find[j] && (i <= (len - 1)))
 		{
 			if (find[j] != str[i])
 				aux = 0;
 			i++;
 			j++;
 		}
+		if (find[j] != '\0')
+			aux = 0;
 		return (aux);
 	}
 	else
