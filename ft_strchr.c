@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-static int	find(const char *s, int c)
+static int	find(const char *s, unsigned char c)
 {
 	int	i;
 
@@ -30,8 +31,11 @@ static int	find(const char *s, int c)
 
 char	*ft_strchr(const char *s, int c)
 {
-	if (find(s, c) >= 0)
-		return ((char *)(s + find(s, c)));
+	unsigned char	aux;
+
+	aux = (unsigned char)c;
+	if (find(s, aux) >= 0)
+		return ((char *)(s + find(s, aux)));
 	else
 		return (0);
 }

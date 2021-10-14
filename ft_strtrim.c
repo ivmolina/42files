@@ -12,55 +12,84 @@
 
 #include "libft.h"
 
-static int	find(char const *set, char car)
+static int	full(char const *s1, char const *set)
+{
+	int	i;
+	int	j;
+	int	aux;
+
+	aux = 0;
+	i = 0;
+	j = 0;
+	while (s1[i])
+	{
+		while (set[j])
+		{
+			if (set[j] == s1[i])
+				aux++;
+			j++;
+		}
+		if (aux == 0)
+			return (0);
+		aux = 0;
+		i++;
+		j = 0;
+	}
+	return (1);
+}
+
+static int	find(char c, const char *set)
 {
 	int	i;
 
 	i = 0;
 	while (set[i])
 	{
-		if (set[i] == car)
+		if (set[i] == c)
 			return (1);
 		i++;
 	}
 	return (0);
 }
 
-static void	cut(char const *s1, char const *set, char *resul)
+static void	forge(const char *str, unsigned int start,
+	unsigned int end, char *res)
 {
-	int		i;
-	int		j;
-	char	*aux;
+	int	i;
 
-	aux = malloc(sizeof(char) * ft_strlen(s1));
-	ft_strlcpy(aux, s1, ft_strlen(s1) + 1);
 	i = 0;
-	while (aux[i])
+	while (start < ft_strlen(str) - end)
 	{
-		if (find(set, aux[i]))
-		{
-			j = i;
-			while (aux[j])
-			{
-				resul[j] = aux[j + 1];
-				j++;
-			}
-			ft_strlcpy(aux, resul, ft_strlen(s1) + 1);
-			i--;
-		}
-		else
-			resul[i] = aux[i];
+		res[i] = str[start];
+		start++;
 		i++;
 	}
+	res[i] = '\0';
 }
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*aux;
+	char	*result;
+	int		i;
+	int		k;
+	int		f;
 
-	aux = malloc(sizeof(char) * ft_strlen(s1));
-	if (aux == NULL)
+	if (full(s1, set))
+		return ("");
+	i = -1;
+	k = 0;
+	f = 0;
+	result = malloc(sizeof(char) * ft_strlen(s1) + 1);
+	if (!result)
 		return (NULL);
-	cut(s1, set, aux);
-	return (aux);
+	while (find(s1[++i], set))
+		k++;
+	i = ft_strlen(s1) - 1;
+	while (find(s1[i], set))
+	{
+		f++;
+		i--;
+	}
+	forge(s1, k, f, result);
+	return (result);
 }

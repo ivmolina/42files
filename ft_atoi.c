@@ -22,7 +22,7 @@ static int	is_number(char c)
 
 static int	atoi2(const char *str, int i)
 {
-	long int	n;
+	int	n;
 
 	n = 0;
 	while (is_number(str[i]))
@@ -45,9 +45,9 @@ static int	space(const char *str, int i)
 
 int	ft_atoi(const char *str)
 {
-	int			i;
-	int			s;
-	long int	number;
+	int	i;
+	int	s;
+	int	number;
 
 	i = 0;
 	s = 1;

@@ -11,69 +11,77 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-static int	delimit(char const *str, char c)
+static void	count_word(char const *str, char c, int *i)
+{
+	int	j;
+
+	j = 0;
+	while (str[j] == c)
+		j++;
+	*i = j;
+	while (str[*i] != c)
+		*i = *i + 1;
+}
+
+static int count(char const *s, char c)
 {
 	int	i;
 	int	count;
 
 	i = 0;
 	count = 0;
-	while (str[i])
+	while (s[i])
 	{
-		if (str[i] == c)
-			count++;
-		i++;
+		while ((s[i] == c) && s[i])
+			i++;
+		if (s[i] == '\0')
+			return (count);
+		while ((s[i] != c) && s[i])
+			i++;
+		count++;
 	}
-	return (count + 1);
+	return (count);
 }
 
-static void	fill(char const *s, char c, char **tab)
+static void	forge(char const *s, char c, char *m, int *j)
 {
 	int	i;
-	int	j;
-	int	k;
 
 	i = 0;
-	j = 0;
-	k = 0;
-	while ((j < delimit(s, c)) && s[k])
+	while ((s[*j] == c) && s[*j])
+		(*j) = (*j) + 1;
+	while ((s[*j] != c) && s[*j])
 	{
-		while ((s[k] != c) && s[k])
-		{
-			tab[j][i] = s[k];
-			i++;
-			k++;
-		}
-		tab[j][i] = '\0';
-		j++;
-		i = 0;
-		k++;
+		m[i] = s[*j];
+		i++;
+		(*j) = (*j) + 1;
 	}
+	m[i] = '\0';
 }
 
 char	**ft_split(char const *s, char c)
 {
+	char	**matrix;
 	int		i;
-	char	**string;
+	int		j;
+	int		k;
 
-	i = 0;
-	string = malloc (sizeof(char *) * delimit(s, c));
-	while (i < delimit(s, c))
-	{
-		string[i] = malloc (sizeof(char) * ft_strlen(s));
-		i++;
-	}
-	if (string == NULL)
+	i = -1;
+	j = 0;
+	k = 0;
+	if ((count(s, c) == 0) || !s)
+		return (0);
+	matrix = malloc(sizeof(char *) * count(s, c));
+	if (!matrix)
 		return (NULL);
-	fill(s, c, string);
-	i = 0;
-	while (i < delimit(s, c))
+	while (++i < count(s, c))
 	{
-		free(string[i]);
-		i++;
+		count_word(s, c, &k);
+		matrix[i] = malloc(sizeof(char) * (k + 1));
+		if (!matrix[i])
+			return (NULL);
+		forge(s, c, matrix[i], &j);
 	}
-	free(string);
-	return (string);
+	return (matrix);
 }
