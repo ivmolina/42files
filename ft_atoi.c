@@ -20,14 +20,14 @@ static int	is_number(char c)
 		return (0);
 }
 
-static int	atoi2(const char *str, int i)
+static unsigned long long int	atoi2(const char *str, unsigned long long int i)
 {
-	int	n;
+	unsigned long long int	n;
 
 	n = 0;
 	while (is_number(str[i]))
 	{
-		n += (int)str[i] - 48;
+		n += (unsigned long long int)str[i] - 48;
 		if (is_number(str[i + 1]))
 			n *= 10;
 		i++;
@@ -35,7 +35,7 @@ static int	atoi2(const char *str, int i)
 	return (n);
 }
 
-static int	space(const char *str, int i)
+static unsigned long long int	space(const char *str, unsigned long long int i)
 {
 	while ((str[i] == ' ') || (str[i] == '\t') || (str[i] == '\n')
 		 || (str[i] == '\v') || (str[i] == '\f') || (str[i] == '\r'))
@@ -45,9 +45,9 @@ static int	space(const char *str, int i)
 
 int	ft_atoi(const char *str)
 {
-	int	i;
-	int	s;
-	int	number;
+	unsigned long long int	i;
+	unsigned long long int	s;
+	unsigned long long int	number;
 
 	i = 0;
 	s = 1;

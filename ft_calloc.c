@@ -21,7 +21,7 @@ void	*ft_calloc(size_t count, size_t size)
 	aux = malloc(size * count);
 	if (aux == NULL)
 		return (NULL);
-	while (i < count)
+	while (i < count * size)
 	{
 		aux[i] = '\0';
 		i++;

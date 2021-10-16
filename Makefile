@@ -11,7 +11,6 @@ SRCS	=			ft_isalpha.c \
 					ft_memmove.c \
 					ft_bzero.c \
 					ft_strlcpy.c \
-					ft_strlcat.c \
 					ft_toupper.c \
 					ft_tolower.c \
 					ft_strchr.c \
@@ -30,7 +29,9 @@ SRCS	=			ft_isalpha.c \
 					ft_putchar_fd.c \
 					ft_putstr_fd.c \
 					ft_putendl_fd.c \
-					ft_putnbr_fd.c
+					ft_putnbr_fd.c \
+					ft_split.c \
+					ft_strlcat.c
 
 SRCSBONUS	=		ft_lstnew_bonus.c \
 					ft_lstadd_front_bonus.c \
