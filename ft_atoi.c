@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int	is_number(char c)
+static long long int	is_number(char c)
 {
 	if ((c >= '0') && (c <= '9'))
 		return (1);
@@ -20,22 +20,20 @@ static int	is_number(char c)
 		return (0);
 }
 
-static unsigned long long int	atoi2(const char *str, unsigned long long int i)
+static long long int	atoi2(const char *str, long long int i)
 {
-	unsigned long long int	n;
+	long long int	n;
 
 	n = 0;
 	while (is_number(str[i]))
 	{
-		n += (unsigned long long int)str[i] - 48;
-		if (is_number(str[i + 1]))
-			n *= 10;
+		n = (n * 10) + (long long int)str[i] - 48;
 		i++;
 	}
 	return (n);
 }
 
-static unsigned long long int	space(const char *str, unsigned long long int i)
+static long long int	space(const char *str, long long int i)
 {
 	while ((str[i] == ' ') || (str[i] == '\t') || (str[i] == '\n')
 		 || (str[i] == '\v') || (str[i] == '\f') || (str[i] == '\r'))
@@ -45,8 +43,8 @@ static unsigned long long int	space(const char *str, unsigned long long int i)
 
 int	ft_atoi(const char *str)
 {
-	unsigned long long int	i;
-	unsigned long long int	s;
+	long long int			i;
+	long long int			s;
 	unsigned long long int	number;
 
 	i = 0;
@@ -61,5 +59,9 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	number = atoi2(str, i);
+	if ((number > 9223372036854775807) && (s > 0))
+		return (-1);
+	else if ((number > 9223372036854775807) && (s < 0))
+		return (0);
 	return (number * s);
 }

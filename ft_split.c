@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
+
 static int	count(char const *s, char c)
 {
 	int	i;
@@ -39,10 +39,11 @@ static int	*count_word(char const *str, char c)
 	int	k;
 	int	*numlen;
 
-	numlen =(int *) malloc(sizeof(int) * count(str, c));
+	numlen = (int *) malloc(sizeof(int) * count(str, c));
+	if (!numlen)
+		return (NULL);
 	i = 0;
-	j = 0;
-	k = 0;
+	k = -1;
 	while (str[i])
 	{
 		j = 0;
@@ -54,9 +55,8 @@ static int	*count_word(char const *str, char c)
 		{
 			j++;
 			i++;
-			numlen[k] = j;
 		}
-		k++;
+		numlen[++k] = j;
 	}
 	return (numlen);
 }
@@ -77,6 +77,16 @@ static void	forge(char const *s, char c, char *m, int *j)
 	m[i] = '\0';
 }
 
+static void	*memfree(char **matrix, int	i)
+{
+	while (i > -1)
+	{
+		free (matrix[i]);
+	}
+	free (matrix);
+	return (NULL);
+}
+
 char	**ft_split(char const *s, char c)
 {
 	char	**matrix;
@@ -86,8 +96,10 @@ char	**ft_split(char const *s, char c)
 
 	i = -1;
 	j = 0;
+	if (!s)
+		return (NULL);
 	numlen = count_word(s, c);
-	if ((count(s, c) == 0) || !s)
+	if (!numlen)
 		return (NULL);
 	matrix = malloc(sizeof(char *) * (count(s, c) + 1));
 	if (!matrix)
@@ -96,7 +108,7 @@ char	**ft_split(char const *s, char c)
 	{
 		matrix[i] = malloc(sizeof(char) * (numlen[i] + 1));
 		if (!matrix[i])
-			return (NULL);
+			return (memfree(matrix, i));
 		forge(s, c, matrix[i], &j);
 	}
 	matrix[i] = NULL;

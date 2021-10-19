@@ -24,6 +24,8 @@ static int	leng(int n)
 		i++;
 		n *= -1;
 	}
+	if (n == 0)
+		i++;
 	while (n >= 1)
 	{
 		n = n / 10;
@@ -77,7 +79,7 @@ char	*ft_itoa(int n)
 	int		i;
 
 	i = 0;
-	num = malloc (sizeof(char) * (leng(n) + 2));
+	num = malloc (sizeof(char) * (leng(n) + 1));
 	if (num == NULL)
 		return (NULL);
 	if (n < 0)
