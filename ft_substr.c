@@ -29,6 +29,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	unsigned int	j;
 	char			*aux;
 
+	if (!s)
+		return ("");
 	if (start >= ft_strlen(s))
 		return (auxf());
 	j = 0;

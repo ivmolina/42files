@@ -71,9 +71,10 @@ char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*result;
 	int		i;
-	int		k;
-	int		f;
+	int		k[2];
 
+	if (!s1)
+		return ("");
 	if (full(s1, set))
 	{
 		result = malloc (sizeof(char));
@@ -81,16 +82,16 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (result);
 	}
 	i = -1;
-	k = 0;
-	f = 0;
+	k[0] = 0;
+	k[1] = 0;
 	while (find(s1[++i], set))
-		k++;
+		k[0]++;
 	i = ft_strlen(s1) - 1;
 	while (find(s1[i--], set))
-		f++;
-	result = malloc(sizeof(char) * (ft_strlen(s1) + 1 - f - k));
+		k[1]++;
+	result = malloc(sizeof(char) * (ft_strlen(s1) + 1 - k[1] - k[0]));
 	if (!result)
 		return (NULL);
-	forge(s1, k, f, result);
+	forge(s1, k[0], k[1], result);
 	return (result);
 }

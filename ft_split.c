@@ -82,6 +82,7 @@ static void	*memfree(char **matrix, int	i)
 	while (i > -1)
 	{
 		free (matrix[i]);
+		i--;
 	}
 	free (matrix);
 	return (NULL);
