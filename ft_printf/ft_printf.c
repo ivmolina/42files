@@ -12,53 +12,67 @@
 
 #include "ft_printf.h"
 
-void	string(char *str)
+void	string(char *str, int **i)
 {
-	while (*str)
-		write(1, str++, 1);
+	if (!str)
+		(**i) = (**i) + write(1, "(null)", 6);
+	else
+	{
+		while (*str)
+		{
+			write(1, str++, 1);
+			(**i) = (**i) + 1;
+		}
+	}
 }
 
-void	chose(char v, va_list arg)
+void	chose(char v, va_list arg, int *i)
 {
 	char	c;
 
 	if ((v == 'i') || (v == 'd'))
-		number(va_arg(arg, int), "0123456789");
+		(*i) = (*i) + number(va_arg(arg, int), "0123456789");
 	else if (v == 'c')
 	{
 		c = va_arg(arg, int);
 		write (1, &c, 1);
+		(*i) = (*i) + 1;
 	}
 	else if (v == 's')
-		string(va_arg(arg, char *));
+		string(va_arg(arg, char *), &i);
 	else if (v == 'x')
-		hexadecimal(va_arg(arg, int), "0123456789abcdef");
+		(*i) = (*i) + hexadecimal(va_arg(arg, int), "0123456789abcdef");
 	else if (v == 'X')
-		upperhexadecimal(va_arg(arg, int), "0123456789ABCDEF");
+		(*i) = (*i) + upperhexadecimal(va_arg(arg, int), "0123456789ABCDEF");
 	else if (v == 'p')
-		pointer(va_arg(arg, void *));
+		pointer(va_arg(arg, void *), &i);
 	else if (v == 'u')
-		unsign(va_arg(arg, unsigned int), "0123456789");
+		(*i) = (*i) + unsign(va_arg(arg, unsigned int), "0123456789");
 	else if (v == '%')
-		write (1, "%%", 1);
+		(*i) = (*i) + write (1, "%%", 1);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	va_list	arg;
+	int		i;
 
+	i = 0;
 	va_start(arg, format);
 	while (*format)
 	{
 		if (*format == '%')
 		{
-			chose(*(format + 1), arg);
+			chose(*(format + 1), arg, &i);
 			format++;
 		}
 		else
+		{
 			write (1, format, 1);
+			i++;
+		}
 		format++;
 	}
 	va_end(arg);
-	return (0);
+	return (i);
 }

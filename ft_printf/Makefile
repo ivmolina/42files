@@ -1,7 +1,8 @@
 NAME	=	libftprintf.a
 
 SRCS	=	ft_printf.c\
-			ft_hexabase.c
+			ft_hexabase.c\
+			ft_hexapointer.c
 
 SRCH	=	ft_printf.h
 

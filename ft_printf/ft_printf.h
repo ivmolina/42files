@@ -18,11 +18,12 @@
 # include <stdlib.h>
 
 int		ft_printf(const char *format, ...);
-void	string(char *str);
-void	pointer(void *p);
+void	string(char *str, int **i);
+void	pointer(void *p, int **i);
 int		unsign(unsigned long n, char *base);
-int		hexadecimal(unsigned long n, char *base);
-int		upperhexadecimal(unsigned long n, char *base);
+int		hexadecimal(unsigned int n, char *base);
+int		upperhexadecimal(unsigned int n, char *base);
 int		number(int n, char *base);
+int		hexapointer(unsigned long n, char *base);
 
 #endif

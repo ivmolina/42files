@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int	hexadecimal(unsigned long n, char *base)
+int	hexadecimal(unsigned int n, char *base)
 {
 	if (n < 16)
 		return (write (1, &base[n], 1));
@@ -21,7 +21,7 @@ int	hexadecimal(unsigned long n, char *base)
 			+ write(1, &base[n % 16], 1));
 }
 
-int	upperhexadecimal(unsigned long n, char *base)
+int	upperhexadecimal(unsigned int n, char *base)
 {
 	if (n < 16)
 		return (write (1, &base[n], 1));
@@ -30,13 +30,11 @@ int	upperhexadecimal(unsigned long n, char *base)
 			+ write(1, &base[n % 16], 1));
 }
 
-void	pointer(void *p)
+void	pointer(void *p, int **i)
 {
-	unsigned long	*aux;
-
 	write(1, "0x", 2);
-	aux = p;
-	hexadecimal((unsigned long)p, "0123456789abcdef");
+	(**i) = (**i) + hexapointer((unsigned long)p, "0123456789abcdef");
+	(**i) = (**i) + 2;
 }
 
 int	unsign(unsigned long n, char *base)
@@ -49,10 +47,12 @@ int	unsign(unsigned long n, char *base)
 
 int	number(int n, char *base)
 {
+	if (n == -2147483648)
+		return (write(1, "-2147483648", 11));
 	if (n < 0)
 	{
 		n *= -1;
-		write(1, "-", 1);
+		return (write(1, "-", 1) + number(n, "0123456789"));
 	}
 	if (n < 10)
 		return (write (1, &base[n], 1));
