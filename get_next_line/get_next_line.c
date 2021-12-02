@@ -1,34 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: socana-b <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/02 12:19:18 by socana-b          #+#    #+#             */
+/*   Updated: 2021/12/02 12:19:20 by socana-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
-void	freeMem(char *str)
+static int createResult(char *str)
 {
-	free (str);
-}
-
-void	fillLine(int fd, char *str)
-{
-	unsigned int i;
+	char *result;
+	unsigned long int i;
 
 	i = 0;
-	while (str[i] != '\n')
-	{
-		read(fd, &str[i], 1);
-		if (str[i] != '\n')
-			i++;
-	}
+	while((str[i] != '\n') || (str[i] != '\0'))
+		i++;
+	if (str[i] == '\n')
+		return (i);
+	else
+		return (0);
 }
 
 char	*get_next_line(int fd)
 {
-	char	*line;
-	char	file[BUFFER_SIZE];
-	unsigned int i;
+	static char	*line;
+	char		*result;
 
-	i = 0;
-	
-	line = malloc(sizeof(char) * BUFFER_SIZE);
-	if (!line)
-		return (NULL);
-	fillLine(fd, line);
-	return (line);
+	line = malloc (sizeof(char) * BUFFER_SIZE + 1);
+	read(fd, line, BUFFER_SIZE);
+	result = createResult(line);
+	return (result);
 }
