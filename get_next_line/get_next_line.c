@@ -12,27 +12,21 @@
 
 #include "get_next_line.h"
 
-static int createResult(char *str)
-{
-	char *result;
-	unsigned long int i;
-
-	i = 0;
-	while((str[i] != '\n') || (str[i] != '\0'))
-		i++;
-	if (str[i] == '\n')
-		return (i);
-	else
-		return (0);
-}
-
 char	*get_next_line(int fd)
 {
 	static char	*line;
 	char		*result;
 
 	line = malloc (sizeof(char) * BUFFER_SIZE + 1);
-	read(fd, line, BUFFER_SIZE);
-	result = createResult(line);
+	if (!line)
+		return NULL;
+	while ((!line) || (!contains(line, '\n')))
+	{
+		read(fd, line, BUFFER_SIZE);
+		if(!result)
+		result = ft_strdup(line);
+		else
+			result = ft_strjoin(result, line);
+	}
 	return (result);
 }
