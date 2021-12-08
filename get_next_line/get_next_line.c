@@ -11,22 +11,19 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
+
+char *fillLine(char *file, char *line, int fd)
+{
+
+}
+
 
 char	*get_next_line(int fd)
 {
-	static char	*line;
-	char		*result;
+	static char	*file;
 
-	line = malloc (sizeof(char) * BUFFER_SIZE + 1);
-	if (!line)
-		return NULL;
-	while ((!line) || (!contains(line, '\n')))
-	{
-		read(fd, line, BUFFER_SIZE);
-		if(!result)
-		result = ft_strdup(line);
-		else
-			result = ft_strjoin(result, line);
-	}
-	return (result);
+	file = malloc(sizeof(char) * BUFFER_SIZE);
+	if (!file)
+		return (NULL);
 }
