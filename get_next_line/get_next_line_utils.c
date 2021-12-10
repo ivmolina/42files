@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: socana-b <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/10 18:04:48 by socana-b          #+#    #+#             */
+/*   Updated: 2021/12/10 18:04:50 by socana-b         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 #include <stdio.h>
 
@@ -32,13 +44,17 @@ char	*ft_strjoin(char const *s1, char const *s2)
 int	contains(char *str, char c)
 {
 	int	i;
+	int	j;
 
+	j = 0;
 	i = 0;
-	while ((str[i] != c) || (str[i] != '\0'))
+	while (str[i] != '\0')
+	{
+		if (str[i] == c)
+			j++;
 		i++;
-	if (str[i] == c)
-		return (1);
-	return (0);
+	}
+	return (j);
 }
 
 char	*ft_strdup(const char *s1)
