@@ -77,6 +77,8 @@ char	*get_next_line(int fd)
 {
 	static char	*file;
 
+	if (fd < 0 || BUFFER_SIZE < 0)
+		return (NULL);
 	if (!file)
 	{
 		file = ft_strdup("");
