@@ -1,12 +1,16 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-int main(){
-	int fd = open("file_manifiesto.txt", O_RDONLY);
-	for (int i = 0; i < 50; i++)
-		printf("%s", get_next_line(fd));
+void leaks(void)
+{
+	system("leaks a.out");
+}
 
+int main(){
+	// atexit(leaks);
+	int fd = open("file_gnl_easy.txt", O_RDONLY);
+	for (int i = 0; i < 1; i++)
+		printf("%s", get_next_line(fd));
 	close(fd);
-	// system("leaks a.out");
 	return 0;
 }

@@ -11,82 +11,30 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
-char	*fixtoreturn(char *str)
-{
-	char			*aux;
-	unsigned int	i;
 
-	i = 0;
-	aux = malloc (sizeof(char) * ft_strlen(str));
-	while (str[i] != '\n')
-	{
-		aux[i] = str[i];
-		i++;
-	}
-	aux[i] = '\n';
-	aux[++i] = '\0';
-	free (aux);
-	return (aux);
-}
-
-char	*repair(char *str)
-{
-	unsigned int	i;
-	unsigned int	j;
-	char			*aux;
-
-	i = 0;
-	j = 0;
-	aux = malloc (sizeof(char) * ft_strlen(str));
-	while (str[i] != '\n')
-		i++;
-	i++;
-	while (str[i] != '\0')
-	{
-		aux[j] = str[i];
-		i++;
-		j++;
-	}
-	return (aux);
-}
-
-char	*fillLine(char *file, int fd, int start)
-{
-	char			*line;
-	unsigned int	j;
-
-	j = BUFFER_SIZE;
-	if (file[0] != '\0')
-		line = repair(file);
-	while (((j == BUFFER_SIZE) && (!contains(file, '\n'))) || start)
-	{
-		free (line);
-		j = read (fd, file, BUFFER_SIZE);
-		if (!line)
-			line = ft_strdup(file);
-		else
-			line = ft_strjoin(line, file);
-		start = 0;
-	}
-	free (line);
-	return (fixtoreturn(line));
-}
 
 char	*get_next_line(int fd)
 {
-	static char	*file;
+	static char *line;
+	char *buffer;
 
-	if (fd < 0 || BUFFER_SIZE < 0)
+	if ((fd < 0) && (BUFFER_SIZE <= 0))
 		return (NULL);
-	if (!file)
+	buffer = malloc (sizeof(char) * BUFFER_SIZE);
+	while (!contains(buffer, '\n'))
 	{
-		file = ft_strdup("");
-		if (!file)
-			return (NULL);
-		return (fillLine(file, fd, 0));
+		read(fd, buffer, BUFFER_SIZE);
+		printf("(%s)\n", buffer);
+		if (!line)
+			line = ft_strdup(buffer);
+		else
+			line = ft_strjoin(line, buffer);
 	}
-	else
-		return (fillLine(file, fd, 1));
+	if (contains(buffer, '\n') == 1)
+		return (line);
+	else if (contains(buffer, '\n') > 1)
+		return ("pito");
 	return (NULL);
 }
