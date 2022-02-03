@@ -22,7 +22,7 @@
 # include <unistd.h>
 
 char	*get_next_line(int fd);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char const *s1, char const *s2, size_t apt);
 int		contains(char *str, char c);
 char	*ft_strdup(const char *s1);
 size_t	ft_strlen(const char *str);

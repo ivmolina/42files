@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2, size_t apt)
 {
 	char	*aux;
 	int		i;
@@ -30,7 +30,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		aux[i] = s1[i];
 		i++;
 	}
-	while (s2[j])
+	while (j < (int)apt)
 	{
 		aux[i] = s2[j];
 		j++;
