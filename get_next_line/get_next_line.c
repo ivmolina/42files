@@ -13,28 +13,64 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
+char	*fix_to_return(char *str)
+{
+	unsigned int	i;
+	char			*aux;
 
+	i = 0;
+	aux = malloc(sizeof(char) * ft_strlen(str) + 1);
+	while (str[i] != '\n')
+	{
+		aux[i] = str[i];
+		i++;
+	}
+	aux[i] = '\n';
+	aux[++i] = '\0';
+	return (aux);
+}
+
+char *fix_new_line(char *str)
+{
+	char			*aux;
+	unsigned int	i;
+	unsigned int	j;
+
+	aux = malloc(sizeof(char) * ft_strlen(str));
+	i = 0;
+	j = 0;
+	while (str[i] != '\n')
+		i++;
+	i++;
+	while (str[i] != '\0')
+	{
+		aux[j] = str[i];
+		i++;
+		j++;
+	}
+	aux[j] = '\0';
+	return (aux);
+}
 
 char	*get_next_line(int fd)
 {
-	static char *line;
-	char *buffer;
+	static char	*line;
+	char		*buffer;
 
 	if ((fd < 0) && (BUFFER_SIZE <= 0))
 		return (NULL);
 	buffer = malloc (sizeof(char) * BUFFER_SIZE);
-	while (!contains(buffer, '\n'))
+	if (!line)
+		line = ft_strdup("");
+	else
+		line = ft_strdup(fix_new_line(line));
+	if (contains(line, '\n') == 0)
 	{
+		while (!contains(buffer, '\n'))
+		{
 		read(fd, buffer, BUFFER_SIZE);
-		printf("(%s)\n", buffer);
-		if (!line)
-			line = ft_strdup(buffer);
-		else
-			line = ft_strjoin(line, buffer);
+		line = ft_strjoin(line, buffer);
+		}
 	}
-	if (contains(buffer, '\n') == 1)
-		return (line);
-	else if (contains(buffer, '\n') > 1)
-		return ("pito");
-	return (NULL);
+	return (fix_to_return(line));
 }

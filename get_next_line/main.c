@@ -9,7 +9,7 @@ void leaks(void)
 int main(){
 	// atexit(leaks);
 	int fd = open("file_gnl_easy.txt", O_RDONLY);
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 5; i++)
 		printf("%s", get_next_line(fd));
 	close(fd);
 	return 0;
