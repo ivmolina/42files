@@ -11,16 +11,17 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 char	*fix_to_return(char *str)
 {
 	unsigned int	i;
 	char			*aux;
 
-	if ((!str) || str[0] == '\0')
+	if ((!str) || (str[0] == '\0'))
 		return (NULL);
 	i = 0;
-	aux = malloc(sizeof(char) * ft_strlen(str) + 1);
+	aux = malloc(sizeof(char) * ft_strlen(str) + 2);
 	while ((str[i] != '\n') && (str[i] != '\0'))
 	{
 		aux[i] = str[i];
@@ -33,7 +34,6 @@ char	*fix_to_return(char *str)
 		aux[i] = '\n';
 		aux[++i] = '\0';
 	}
-	free(aux);
 	return (aux);
 }
 
@@ -43,12 +43,12 @@ char	*fix_new_line(char *str)
 	unsigned int	i;
 	unsigned int	j;
 
-	aux = malloc(sizeof(char) * ft_strlen(str));
 	i = 0;
 	j = 0;
 	while ((str[i] != '\n') && (str[i] != '\0'))
 		i++;
 	i++;
+	aux = malloc(sizeof(char) * ft_strlen(str));
 	while (str[i] != '\0')
 	{
 		aux[j] = str[i];
@@ -56,6 +56,7 @@ char	*fix_new_line(char *str)
 		j++;
 	}
 	aux[j] = '\0';
+	free(str);
 	return (aux);
 }
 
@@ -68,21 +69,23 @@ char	*get_next_line(int fd)
 	if ((fd < 0) && (BUFFER_SIZE <= 0))
 		return (NULL);
 	buffer = malloc (sizeof(char) * BUFFER_SIZE);
+	apt = BUFFER_SIZE;
 	if (!line)
-	{
 		line = ft_strdup("");
-		apt = BUFFER_SIZE;
-	}
 	else
-		line = ft_strdup(fix_new_line(line));
-	if (contains(line, '\n') == 0)
 	{
-		while ((!contains(buffer, '\n')) && (apt == BUFFER_SIZE))
-		{
-			apt = read(fd, buffer, BUFFER_SIZE);
-			line = ft_strjoin(line, buffer, apt);
-		}
+		char *newLine = fix_new_line(line);
+		line = ft_strdup(newLine);
+		free(newLine);
+	}
+	while ((!contains(line, '\n')) && (apt == BUFFER_SIZE))
+	{
+		free(line);
+		apt = read(fd, buffer, BUFFER_SIZE);
+		line = ft_strjoin(line, buffer, apt);
 	}
 	free(buffer);
-	return (fix_to_return(line));
+	char *result = fix_to_return(line);
+	free (result);//?????????
+	return (result);
 }

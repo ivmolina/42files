@@ -7,9 +7,9 @@ void leaks(void)
 }
 
 int main(){
-	// atexit(leaks);
+	atexit(leaks);
 	int fd = open("file_manifiesto.txt", O_RDONLY);
-	for (int i = 0; i < 200; i++)
+	for (int i = 0; i < 199; i++)
 		printf("%s", get_next_line(fd));
 	close(fd);
 	return 0;
