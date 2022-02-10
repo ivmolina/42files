@@ -2,9 +2,8 @@
 
 int main(int argc, char **argv)
 {
-	if (/* condition */)
-	{
-		/* code */
-	}
+	if (error_manager(argv, argc))
+		return (NULL);
 	
+	return (0);
 }
