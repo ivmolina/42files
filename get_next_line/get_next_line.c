@@ -17,11 +17,19 @@ char	*fix_to_return(char *str)
 {
 	unsigned int	i;
 	char			*aux;
+	char			*aux2;
 
-	if ((!str) || (str[0] == '\0'))
+	if ((!str) || (str[0] == '\0')){
+		str = NULL;
+		return (NULL);
+	}
+	i = 0;
+	while ((str[i] != '\n') && (str[i] != '\0'))
+		i++;
+	aux = malloc(sizeof(char) * (i + 2));
+	if (!aux)
 		return (NULL);
 	i = 0;
-	aux = malloc(sizeof(char) * ft_strlen(str) + 2);
 	while ((str[i] != '\n') && (str[i] != '\0'))
 	{
 		aux[i] = str[i];
@@ -34,7 +42,9 @@ char	*fix_to_return(char *str)
 		aux[i] = '\n';
 		aux[++i] = '\0';
 	}
-	return (aux);
+	aux2=aux;
+	free(aux);
+	return (aux2);
 }
 
 char	*fix_new_line(char *str)
@@ -44,11 +54,16 @@ char	*fix_new_line(char *str)
 	unsigned int	j;
 
 	i = 0;
-	j = 0;
 	while ((str[i] != '\n') && (str[i] != '\0'))
 		i++;
 	i++;
-	aux = malloc(sizeof(char) * ft_strlen(str));
+	j = i;
+	while (str[j] != '\0')
+		j++;
+	aux = malloc(sizeof(char) * (j + 1));
+	if (!aux)
+		return (NULL);
+	j = 0;
 	while (str[i] != '\0')
 	{
 		aux[j] = str[i];
@@ -56,7 +71,6 @@ char	*fix_new_line(char *str)
 		j++;
 	}
 	aux[j] = '\0';
-	free(str);
 	return (aux);
 }
 
@@ -69,12 +83,15 @@ char	*get_next_line(int fd)
 	if ((fd < 0) && (BUFFER_SIZE <= 0))
 		return (NULL);
 	buffer = malloc (sizeof(char) * BUFFER_SIZE);
+	if (!buffer)
+		return (NULL);
 	apt = BUFFER_SIZE;
 	if (!line)
 		line = ft_strdup("");
 	else
 	{
 		char *newLine = fix_new_line(line);
+		free(line);
 		line = ft_strdup(newLine);
 		free(newLine);
 	}
@@ -85,7 +102,5 @@ char	*get_next_line(int fd)
 		line = ft_strjoin(line, buffer, apt);
 	}
 	free(buffer);
-	char *result = fix_to_return(line);
-	free (result);//?????????
-	return (result);
+	return (fix_to_return(line));
 }
