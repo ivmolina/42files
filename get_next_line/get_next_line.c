@@ -86,6 +86,6 @@ char	*get_next_line(int fd)
 	}
 	free(buffer);
 	char *result = fix_to_return(line);
-	free (result);//?????????
+	free(result);
 	return (result);
 }
